@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Emotion Analysis Result Page" />
+  <title>Emotion Analysis Result</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      max-width: 600px;
+      line-height: 1.6;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      color: #007acc;
+    }
+    p strong {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Emotion Analysis Result</h1>
+  <p><strong>Emotion:</strong> <span id="emotion"></span></p>
+  <p><strong>Need:</strong> <span id="need"></span></p>
+  <p><strong>Strategy 1:</strong> <span id="strat1"></span></p>
+  <p><strong>Strategy 2:</strong> <span id="strat2"></span></p>
+
+  <script>
+    // Function to parse URL query parameters into an object
+    function getQueryParams() {
+      const params = {};
+      const queryString = window.location.search.substring(1); // remove '?'
+      if (!queryString) return params;
+      const pairs = queryString.split("&");
+      for (const pair of pairs) {
+        const [key, value] = pair.split("=");
+        if (key) {
+          try {
+            params[decodeURIComponent(key)] = decodeURIComponent(value || "");
+          } catch (e) {
+            // Fallback in case of malformed encoding
+            params[key] = value || "";
+          }
+        }
+      }
+      return params;
+    }
+
+    const params = getQueryParams();
+
+    // Populate the page with values or fallback text
+    document.getElementById("emotion").textContent = params["emotion"] || "N/A";
+    document.getElementById("need").textContent = params["need"] || "N/A";
+    document.getElementById("strat1").textContent = params["strat1"] || "N/A";
+    document.getElementById("strat2").textContent = params["strat2"] || "N/A";
+  </script>
+</body>
+</html>
